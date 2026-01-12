@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação Nutricional Gratuita</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        #quiz-container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 450px; width: 90%; text-align: center; }
+        .question { display: none; }
+        .question.active { display: block; }
+        h2 { color: #2c3e50; font-size: 1.4em; }
+        button { background: #27ae60; color: white; border: none; padding: 15px 20px; margin: 10px 0; width: 100%; border-radius: 8px; font-size: 1.1em; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #219150; }
+        #loading { display: none; }
+        #result { display: none; }
+        .progress-bar { background: #eee; height: 10px; border-radius: 5px; margin-bottom: 20px; }
+        .progress { background: #27ae60; height: 100%; width: 0%; border-radius: 5px; transition: 0.5s; }
+        .cta-price { font-size: 1.5em; color: #e74c3c; font-weight: bold; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div class="progress-bar"><div class="progress" id="progress"></div></div>
+
+    <div class="question active" id="q1">
+        <h2>Qual seu principal objetivo hoje?</h2>
+        <button onclick="nextStep(1, 25)">Perder gordura localizada</button>
+        <button onclick="nextStep(1, 25)">Ganhar energia e disposição</button>
+        <button onclick="nextStep(1, 25)">Reeducação alimentar</button>
+    </div>
+
+    <div class="question" id="q2">
+        <h2>Como é sua rotina de alimentação?</h2>
+        <button onclick="nextStep(2, 50)">Muito corrida (como fora)</button>
+        <button onclick="nextStep(2, 50)">Tenho tempo de cozinhar</button>
+        <button onclick="nextStep(2, 50)">Petisco muito entre as refeições</button>
+    </div>
+
+    <div class="question" id="q3">
+        <h2>O que mais te impede de emagrecer?</h2>
+        <button onclick="nextStep(3, 75)">Efeito Sanfona</button>
+        <button onclick="nextStep(3, 75)">Vontade de comer doces</button>
+        <button onclick="nextStep(3, 75)">Não saber o que comer</button>
+    </div>
+
+    <div class="question" id="q4">
+        <h2>Você busca um plano econômico com alimentos baratos?</h2>
+        <button onclick="showLoading()">Sim, quero economizar</button>
+        <button onclick="showLoading()">Sim, quero praticidade</button>
+    </div>
+
+    <div id="loading">
+        <h2>Analisando seu perfil...</h2>
+        <p>Buscando as melhores combinações de alimentos para você.</p>
+        <img src="https://i.gifer.com/ZZ5H.gif" width="50" alt="loading">
+    </div>
+
+    <div id="result">
+        <h2 style="color: #27ae60;">Perfil Identificado! ✅</h2>
+        <p>Com base nas suas respostas, preparamos o <strong>Plano Alimentar Exclusivo</strong> ideal para destravar seu metabolismo.</p>
+        
+        <div style="text-align: left; background: #f0fdf4; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <small>VOCÊ RECEBERÁ:</small><br>
+            • Plano Alimentar Personalizado<br>
+            • Lista de Compras Econômica<br>
+            • Guia de Substituições Inteligentes
+        </div>
+
+        <div class="cta-price">R$ 49,90</div>
+        
+        <a href="SEU_LINK_DA_HOTMART_AQUI" style="text-decoration: none;">
+            <button style="background: #e67e22; font-weight: bold; font-size: 1.3em;">QUERO MEU PLANO AGORA</button>
+        </a>
+        <p style="font-size: 0.8em; color: #7f8c8d;">Acesso imediato após o pagamento.</p>
+    </div>
+</div>
+
+<script>
+    function nextStep(current, percent) {
+        document.getElementById('q' + current).classList.remove('active');
+        document.getElementById('q' + (current + 1)).classList.add('active');
+        document.getElementById('progress').style.width = percent + '%';
+    }
+
+    function showLoading() {
+        document.getElementById('q4').classList.remove('active');
+        document.getElementById('progress').style.width = '100%';
+        document.getElementById('loading').style.display = 'block';
+        
+        setTimeout(function() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+        }, 3000); // Espera 3 segundos para parecer que está calculando
+    }
+</script>
+
+</body>
+</html>
