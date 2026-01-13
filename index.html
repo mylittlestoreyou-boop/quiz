@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliação Nutricional Gratuita</title>
+    <title>Avaliação de Perfil Nutricional</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        #quiz-container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 450px; width: 90%; text-align: center; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        #quiz-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 450px; width: 90%; text-align: center; }
         .question { display: none; }
         .question.active { display: block; }
-        h2 { color: #2c3e50; font-size: 1.4em; }
-        button { background: #27ae60; color: white; border: none; padding: 15px 20px; margin: 10px 0; width: 100%; border-radius: 8px; font-size: 1.1em; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #219150; }
+        h2 { color: #2c3e50; line-height: 1.3; }
+        button { background: #27ae60; color: white; border: none; padding: 18px; margin: 10px 0; width: 100%; border-radius: 10px; font-size: 1.1em; cursor: pointer; transition: 0.3s; font-weight: 600; }
+        button:hover { background: #219150; transform: translateY(-2px); }
         #loading { display: none; }
         #result { display: none; }
-        .progress-bar { background: #eee; height: 10px; border-radius: 5px; margin-bottom: 20px; }
-        .progress { background: #27ae60; height: 100%; width: 0%; border-radius: 5px; transition: 0.5s; }
-        .cta-price { font-size: 1.5em; color: #e74c3c; font-weight: bold; margin: 20px 0; }
+        .progress-bar { background: #eee; height: 8px; border-radius: 4px; margin-bottom: 25px; }
+        .progress { background: #27ae60; height: 100%; width: 0%; border-radius: 4px; transition: 0.5s; }
+        .badge { background: #e8f5e9; color: #27ae60; padding: 5px 15px; border-radius: 20px; font-size: 0.9em; font-weight: bold; margin-bottom: 10px; display: inline-block; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .btn-pulse { background: #e67e22 !important; animation: pulse 2s infinite; font-size: 1.2em; }
     </style>
 </head>
 <body>
@@ -25,76 +27,50 @@
     <div class="progress-bar"><div class="progress" id="progress"></div></div>
 
     <div class="question active" id="q1">
+        <div class="badge">PASSO 1 DE 4</div>
         <h2>Qual seu principal objetivo hoje?</h2>
         <button onclick="nextStep(1, 25)">Perder gordura localizada</button>
         <button onclick="nextStep(1, 25)">Ganhar energia e disposição</button>
-        <button onclick="nextStep(1, 25)">Reeducação alimentar</button>
+        <button onclick="nextStep(1, 25)">Apenas comer de forma saudável</button>
     </div>
 
     <div class="question" id="q2">
+        <div class="badge">PASSO 2 DE 4</div>
         <h2>Como é sua rotina de alimentação?</h2>
         <button onclick="nextStep(2, 50)">Muito corrida (como fora)</button>
-        <button onclick="nextStep(2, 50)">Tenho tempo de cozinhar</button>
-        <button onclick="nextStep(2, 50)">Petisco muito entre as refeições</button>
+        <button onclick="nextStep(2, 50)">Tenho tempo de preparar marmitas</button>
+        <button onclick="nextStep(2, 50)">Como muito por ansiedade</button>
     </div>
 
     <div class="question" id="q3">
+        <div class="badge">PASSO 3 DE 4</div>
         <h2>O que mais te impede de emagrecer?</h2>
         <button onclick="nextStep(3, 75)">Efeito Sanfona</button>
-        <button onclick="nextStep(3, 75)">Vontade de comer doces</button>
-        <button onclick="nextStep(3, 75)">Não saber o que comer</button>
+        <button onclick="nextStep(3, 75)">Vontade constante de doces</button>
+        <button onclick="nextStep(3, 75)">Não saber por onde começar</button>
     </div>
 
     <div class="question" id="q4">
-        <h2>Você busca um plano econômico com alimentos baratos?</h2>
+        <div class="badge">PASSO 4 DE 4</div>
+        <h2>Você busca um plano simples com alimentos baratos?</h2>
         <button onclick="showLoading()">Sim, quero economizar</button>
         <button onclick="showLoading()">Sim, quero praticidade</button>
     </div>
 
     <div id="loading">
-        <h2>Analisando seu perfil...</h2>
-        <p>Buscando as melhores combinações de alimentos para você.</p>
-        <img src="https://i.gifer.com/ZZ5H.gif" width="50" alt="loading">
+        <img src="https://i.gifer.com/ZZ5H.gif" width="50" style="margin-bottom: 15px;">
+        <h2>Analisando suas respostas...</h2>
+        <p>Montando a melhor combinação de alimentos para o seu perfil.</p>
     </div>
 
     <div id="result">
-        <h2 style="color: #27ae60;">Perfil Identificado! ✅</h2>
-        <p>Com base nas suas respostas, preparamos o <strong>Plano Alimentar Exclusivo</strong> ideal para destravar seu metabolismo.</p>
+        <h2 style="color: #27ae60;">Análise Concluída! ✅</h2>
+        <p>Identificamos o que está travando seu metabolismo. Preparamos uma recomendação exclusiva para você.</p>
         
-        <div style="text-align: left; background: #f0fdf4; padding: 15px; border-radius: 8px; margin: 15px 0;">
-            <small>VOCÊ RECEBERÁ:</small><br>
-            • Plano Alimentar Personalizado<br>
-            • Lista de Compras Econômica<br>
-            • Guia de Substituições Inteligentes
+        <div style="text-align: left; background: #f0fdf4; padding: 20px; border-radius: 12px; margin: 20px 0; border: 1px solid #c3e6cb;">
+            <strong>Seu Perfil:</strong> Metabolismo com necessidade de reativação.<br>
+            <strong>Estratégia:</strong> Ciclo de alimentos termogênicos e práticos.
         </div>
 
-        <div class="cta-price">R$ 49,90</div>
-        
-        <a href="SEU_LINK_DA_HOTMART_AQUI" style="text-decoration: none;">
-            <button style="background: #e67e22; font-weight: bold; font-size: 1.3em;">QUERO MEU PLANO AGORA</button>
-        </a>
-        <p style="font-size: 0.8em; color: #7f8c8d;">Acesso imediato após o pagamento.</p>
-    </div>
-</div>
-
-<script>
-    function nextStep(current, percent) {
-        document.getElementById('q' + current).classList.remove('active');
-        document.getElementById('q' + (current + 1)).classList.add('active');
-        document.getElementById('progress').style.width = percent + '%';
-    }
-
-    function showLoading() {
-        document.getElementById('q4').classList.remove('active');
-        document.getElementById('progress').style.width = '100%';
-        document.getElementById('loading').style.display = 'block';
-        
-        setTimeout(function() {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('result').style.display = 'block';
-        }, 3000); // Espera 3 segundos para parecer que está calculando
-    }
-</script>
-
-</body>
-</html>
+        <a href="vendas.html" style="text-decoration: none;">
+            <button class="btn-pulse">VER ME
